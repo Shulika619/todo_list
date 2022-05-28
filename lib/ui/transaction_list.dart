@@ -16,60 +16,64 @@ class TransactionList extends StatefulWidget {
 class _TransactionListState extends State<TransactionList> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400,
-      child: widget.userTransactions.isEmpty
-          ? Column(
-              children: [
-                Text("Нет расходов...",
-                    style: Theme.of(context).textTheme.titleSmall),
-                const Icon(
-                  Icons.not_interested_outlined,
-                  size: 35,
-                  color: Colors.redAccent,
-                )
-              ],
-            )
-          : ListView.builder(
-              itemCount: widget.userTransactions.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  elevation: 5,
-                  margin: const EdgeInsets.all(5),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: const EdgeInsets.all(6),
-                        child: FittedBox(
-                            child: Text(
-                                "\$${widget.userTransactions[index].amount.toStringAsFixed(2)}")),
-                      ),
+    return widget.userTransactions.isEmpty
+        ? Column(
+            children: [
+              Text("Нет расходов...",
+                  style: Theme.of(context).textTheme.titleSmall),
+              const Icon(
+                Icons.not_interested_outlined,
+                size: 35,
+                color: Colors.redAccent,
+              )
+            ],
+          )
+        : ListView.builder(
+            itemCount: widget.userTransactions.length,
+            itemBuilder: (context, index) {
+              return Card(
+                elevation: 5,
+                margin: const EdgeInsets.all(5),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 30,
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: FittedBox(
+                          child: Text(
+                              "\$${widget.userTransactions[index].amount.toStringAsFixed(2)}")),
                     ),
-                    title: Text(
-                      widget.userTransactions[index].title,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    subtitle: Text(
-                      DateFormat('dd/MM/yyyy')
-                          .format(widget.userTransactions[index].date),
-                      style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey),
-                    ),
-                    trailing: IconButton(
-                        icon: const Icon(
-                          Icons.delete,
-                          color: Colors.redAccent,
-                        ),
-                        onPressed: () => widget
-                            .delTransaction(widget.userTransactions[index].id)),
                   ),
-                );
-              },
-            ),
-    );
+                  title: Text(
+                    widget.userTransactions[index].title,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  subtitle: Text(
+                    DateFormat('dd/MM/yyyy')
+                        .format(widget.userTransactions[index].date),
+                    style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey),
+                  ),
+                  trailing: MediaQuery.of(context).size.width > 460
+                      ? OutlinedButton.icon(
+                          onPressed: () => widget.delTransaction(
+                              widget.userTransactions[index].id),
+                          icon: const Icon(Icons.delete),
+                          label: const Text('удалить'),
+                        )
+                      : IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.redAccent,
+                          ),
+                          onPressed: () => widget.delTransaction(
+                              widget.userTransactions[index].id)),
+                ),
+              );
+            },
+          );
   }
 }
 

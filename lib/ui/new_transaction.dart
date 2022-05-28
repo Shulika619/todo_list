@@ -47,44 +47,50 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              decoration: const InputDecoration(labelText: "Название"),
-              controller: _titleController,
-              onSubmitted: (_) => _submitData(),
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: "Цена"),
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitData(),
-            ),
-            const SizedBox(height: 22),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(_selectedDate == null
-                      ? "дата не выбрана"
-                      : "Выбранная дата: ${DateFormat('dd/MM/yyyy').format(_selectedDate!)}"),
-                ),
-                TextButton(
-                    onPressed: _presentDatePicker,
-                    child: const Text('Выбрать дату')),
-              ],
-            ),
-            ElevatedButton(
-              onPressed: () => _submitData(),
-              child: const Text(
-                'Добавить',
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(
+              top: 10,
+              left: 10,
+              right: 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                decoration: const InputDecoration(labelText: "Название"),
+                controller: _titleController,
+                onSubmitted: (_) => _submitData(),
               ),
-            ),
-          ],
+              TextField(
+                decoration: const InputDecoration(labelText: "Цена"),
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submitData(),
+              ),
+              const SizedBox(height: 22),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(_selectedDate == null
+                        ? "дата не выбрана"
+                        : "Выбранная дата: ${DateFormat('dd/MM/yyyy').format(_selectedDate!)}"),
+                  ),
+                  TextButton(
+                      onPressed: _presentDatePicker,
+                      child: const Text('Выбрать дату')),
+                ],
+              ),
+              ElevatedButton(
+                onPressed: () => _submitData(),
+                child: const Text(
+                  'Добавить',
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
