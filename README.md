@@ -1,6 +1,12 @@
 # todo_list
 
-A new Flutter project.
+Список расходов + график расходов за 7 дней
+- id
+- название расхода
+- стоимость
+- дата
+
+
 
 ## Getting Started
 
